@@ -43,9 +43,9 @@ class Warehouse{
         return data;
     }
 
-    async getWarehouseByName(name){
+    async getWarehouseByName(id,name){
 
-        const warehouseRaw = await query("SELECT * FROM `warehouse` WHERE warehouse.name = ?",name);
+        const warehouseRaw = await query("SELECT * FROM `warehouse` WHERE warehouse.name = ? and warehouse.id != ? ",[name,id]);
         return warehouseRaw;
     }
 
@@ -54,7 +54,12 @@ class Warehouse{
         return warehouseRaw;
     }
 
-}
+    async getWarehouseBySupervisorId(supervisorId , warehouseId){
+        const warehouseRaw = await query("SELECT warehouse.supervisorId FROM `warehouse` WHERE warehouse.supervisorId = ? and warehouse.id != ?" , [supervisorId,warehouseId]);
+        return warehouseRaw;
+    } 
+
+}  
 
 
 module.exports = Warehouse;

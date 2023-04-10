@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true })); // TO ACCESS URL FORM ENCODED
 
 /* API routes */
 // app.use('/api/admins' , admins);
- app.use('/api/supervisor',supervisors);
+app.use('/api/supervisor',supervisors);
 app.use('/api/warehouses' , warehouses);
 // app.use('/api/products',products);
 // app.use('/api/requests' , requests);

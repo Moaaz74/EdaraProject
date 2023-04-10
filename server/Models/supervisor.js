@@ -39,7 +39,7 @@ class supervisor extends user {
         });
     }
 
-     static async getsupervisor(id) {
+    static async getsupervisor(id) {
         return new Promise((resolve, reject) => {
             const query = ' SELECT * FROM user WHERE id = ? and type = ?';
             const type = "supervisor" ;

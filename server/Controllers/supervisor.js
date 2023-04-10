@@ -25,7 +25,7 @@ class supervisorcontroller {
         supervisor.name = req.body.name;
         supervisor.email = req.body.email;
         supervisor.phone = req.body.phone;
-        const password = req.body.passward;
+        const password = req.body.password;
         const hashpassward = await bcrypt.hash(password,10);
         supervisor.passward = hashpassward;
         const randomtoken = crypto.randomBytes(16).toString("hex");

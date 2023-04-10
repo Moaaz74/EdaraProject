@@ -25,24 +25,29 @@ class AuthController{
                 ],
                 });
             }
-
-            // 3- COMPARE HASHED PASSWORD
-            const checkPassword = await bcrypt.compare(
-                req.body.password,
-                user[0].password
-            );
-            if (checkPassword) {
-                delete user[0].password;
-                res.status(200).json(user[0]);
+            if(user[0].type != "admin"){
+                // 3- COMPARE HASHED PASSWORD
+                const checkPassword = await bcrypt.compare(
+                    req.body.password,
+                    user[0].password
+                );
+                if (checkPassword) {
+                    delete user[0].password;
+                    res.status(200).json(user[0]);
+                }else {
+                    res.status(404).json({
+                    errors: [
+                        {
+                        msg: "email or password not found !",
+                        },
+                    ],
+                    });
+                }
             }else {
-                res.status(404).json({
-                errors: [
-                    {
-                    msg: "email or password not found !",
-                    },
-                ],
-                });
+                if(req.body.password != user[0].password)res.status(404).json({msg : "Invalid Password"});
+                res.status(200).json(user[0]);
             }
+
         } catch (err) {
             console.log(err);
         res.status(500).json({ err: err });

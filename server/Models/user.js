@@ -5,7 +5,7 @@ class user {
     email = '';
     type = 'supervisor';
     passward = '';
-    state = 'in-active';
+    state = 'Active';
     id;
     token = "" ;
 
@@ -42,7 +42,7 @@ class user {
                     resolve(error);
                 }
                 else {
-
+ 
                     resolve(result);
                 }
             })
@@ -51,4 +51,4 @@ class user {
 
 }
 
-module.exports = user;
+module.exports = user; 

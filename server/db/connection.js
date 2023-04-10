@@ -3,7 +3,7 @@ const connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'movie-app',
+    database : 'edaraproject',
     port : "3306",
 });
 

@@ -1,5 +1,5 @@
 const e = require('cors');
-const conn = require('../DB/connection');
+const conn = require('../db/connection');
 const Request = require('../Models/request');
 
 const request = new Request();

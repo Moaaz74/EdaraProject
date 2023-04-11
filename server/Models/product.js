@@ -54,7 +54,7 @@ class Product {
         )
     }
 
-    deleteProduct(id) {
+    static deleteProduct(id) {
         return new Promise((resolve,reject) => {   
             db.query("delete from product where id = ?", id , (error , result) => {
                 if (error) {
@@ -68,28 +68,57 @@ class Product {
         )
     }
 
-    async listProducts(id , res) {
+    static async listProducts(id , res) {
         const query = util.promisify(db.query).bind(db);
         const product = await query("select * from product where warehouseId = ?" ,[id]);
         res.status(200).json(product); 
     }
 
-    async showProducts(id , res) {
+    static async showProducts(id , res) {
         const query = util.promisify(db.query).bind(db);
         const product = await query("select * from product where id = ?" ,[id]);
         res.status(200).json(product); 
     }
         
-    async check_product_name(name , res) {
+    static async check_product_name(name , res) {
         const query = util.promisify(db.query).bind(db);
         const product = await query("select * from product where name = ?" ,[name]);
         if(product[0]) {
-            res.status(400).json({ ms: "Prodct name is already esisted" });
+            res.status(400).json({ ms: "Prodct name is already existed" });
+            return true;
+        }
+        return false;
+    }
+
+    static async check_product_exist(name , id , res) {
+        const query = util.promisify(db.query).bind(db);
+        const product = await query("select * from product where name = ? AND NOT id = ?" ,[name , id]);
+        if(product[0]) {
+            res.status(400).json({ ms: "Prodct name is already existed" });
             return true;
         }
         return false;
     }
         
-    
+    static async check_warehouse_id(id,res) {
+        const query = util.promisify(db.query).bind(db);
+        const product = await query("select * from warehouse where id = ?" ,[id]);
+        if(!product[0]) {
+            res.status(400).json({ ms: "warehous id is not found" });
+            return true;
+        }
+        return false;
+    }
+
+    static async check_product_id(id , res) {
+        const query = util.promisify(db.query).bind(db);
+        const product = await query("select * from product where id = ?" ,[id]);
+        if(!product[0]) {
+            res.status(400).json({ ms: "product id is not found" });
+            return true;
+        }
+        return false;
+    }
+
 }
 module.exports = Product;

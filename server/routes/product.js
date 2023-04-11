@@ -12,27 +12,16 @@ const Product = require('../Models/product');
   const validateUserData = [
     body("name").isString().withMessage("please enter valid name ").isLength({ min: 3, max: 20 }).withMessage("description should be at lease 30 characters"),
     body('descritption').isString().withMessage("please enter valid description ").isLength({ min: 8, max: 30 }).withMessage("description should be at lease 30 characters") , 
+    body('stock').notEmpty().withMessage("please enter stock quantity").isInt({ min : 0}).withMessage("please enter Integer number"),
+    body('warehouseId').notEmpty().withMessage("please enter warehouse id").isInt({ min : 1}).withMessage("please enter Integer number"),
   ];
 
-  function check_if_product_exist(req , res) {
-    const product = new Product(null);
-    const result = product.check_product_name(req.body.name , res);
-    if(result == true){
-      
-      return true;
-    } 
-    else return false;
-    
-  }
-
   router.post("/addProduct" , admin, upload.single("photo"), validateUserData , (req , res) => {
-      if(check_if_product_exist(req , res) == true) return;
       productController.addProduct(req,res);
     }
 )
 
   router.put("/updateProduct/:id" ,admin, validateUserData , (req , res) => {
-    if(check_if_product_exist(req , res) == true) return;
       productController.updateProduct(req,res);
   }
 

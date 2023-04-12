@@ -11,10 +11,7 @@ class usercontroller {
         var result = await user.authenticateUser(req.body.email);
         if (result.length > 0) {
             const hashPassword = result[0].passward;
-            console.log(hashPassword)
-            console.log(req.body.passward)
-            const checkpassward = await  bcrypt.compare(req.body.passward,result[0].passward)
-          console.log(checkpassward)
+            const checkpassward = await  bcrypt.compare(req.body.passward,result[0].passward);
            if (checkpassward) {
                delete result[0].passward;
                res.status(200).json({ data: result });

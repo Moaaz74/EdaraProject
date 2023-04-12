@@ -4,8 +4,8 @@ const router = express.Router();
 const requestc = require('../Controllers/request');
 
 
-router.post('/createrequest:id',requestc.insertRequest);
+router.post('/create:id',requestc.insertRequest);
 
-router.get('/showrequest:id',requestc.showSupervisorReq);
+router.get('/show:id',requestc.showSupervisorReq);
 
 module.exports = router ;

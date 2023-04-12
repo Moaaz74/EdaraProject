@@ -104,7 +104,7 @@ class Product {
         const query = util.promisify(db.query).bind(db);
         const product = await query("select * from warehouse where id = ?" ,[id]);
         if(!product[0]) {
-            res.status(400).json({ ms: "warehous id is not found" });
+            res.status(400).json({ ms: "warehous is not found" });
             return true;
         }
         return false;

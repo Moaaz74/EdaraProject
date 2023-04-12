@@ -28,7 +28,7 @@ class supervisor extends user {
             const query = "insert into user (name,email,password,state,type,token,phone) values(?,?,?,?,?,?,?)";
             console.log(query)
             db.query(query, [this.name, this.email, this.passward, this.state, this.type, this.token, this.phone], (error, result) => {
-                console.log(error)
+                
                 if (error) {
                     resolve("error");
                 }

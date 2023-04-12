@@ -22,9 +22,10 @@ id = 8;
     return "ERROR supervisor does not exist";
 
     const checkEmailExists = await query("select * from user where email= ?",[this.email]);
-    if(checkEmailExists.length>0)
+    if(checkEmailExists.length>0 && checkEmailExists[0].email!= this.email)
     return "ERROR email is already exists";
-    await query( "update user set name = ? , email =? , state = ?  where id = ?",[this.name,this.email,this.state,id]);
+    
+    await query( "update user set name = ? , email =? , state = ? , phone = ?  where id = ?",[this.name,this.email,this.state,this.phone,id]);
         
         return "Supervisor is updated";      
         

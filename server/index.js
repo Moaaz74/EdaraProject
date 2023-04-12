@@ -17,12 +17,12 @@ app.use(express.urlencoded({ extended: true })); // TO ACCESS URL FORM ENCODED
 
 
 /* API routes */
- app.use('/api/admins' , admin,admins);
-app.use('/api/supervisor',supervisors);
-app.use('/api/warehouses' , warehouses);
-app.use('/api/products',products);
-app.use('/api/requests'  ,requests);
-app.use('/api/Auth' , auth);
+app.use('/admin' , admin,admins);
+app.use('/supervisor',supervisors);
+app.use('/warehouse' , warehouses);
+app.use('/product',products);
+app.use('/requests' ,Auth ,requests);
+app.use('/Auth' , auth);
 
 /* Run the App */
 app.listen(3000 , "localhost" , () =>{

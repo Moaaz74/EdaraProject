@@ -8,9 +8,10 @@ async updateSupervisor(req,res){
 admin.state= req.body.state;
 admin.name = req.body.name;
 admin.email = req.body.email;
+admin.phone = req.body.phone;
    const result =   await admin.updateSupervisor(req.params.id); 
    if(result!="Supervisor is updated")
-   res.status(404).json({ msg : result});
+   res.status(403).json({ msg : result});
    else 
    res.json({ msg : result});
 }

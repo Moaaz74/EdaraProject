@@ -6,14 +6,14 @@ const authentication = require("../middleware/auth") ;
 const isadmin= require("../middleware/admin") ;
 
 
-router.get('/',isadmin,supervisorcontroller.getallsupervisor);
+router.get('/showall',isadmin,supervisorcontroller.getallsupervisor);
 
 
 // Validation middleware
 const validateUserData = [
     body("email").isEmail().withMessage("please enter valid email "),
-    body('password').isLength({ min: 8, max: 12 }).withMessage("please enter valid password ") , 
-    body('name').isString().withMessage("please enter valid name ").isLength({ min: 6, max: 20 }).withMessage("name should be in range 6-20"),
+    body('password').isLength({ min: 8, max: 16 }).withMessage("please enter valid password ") , 
+    body('name').isString().withMessage("please enter valid name ").isLength({ min: 3, max: 20 }).withMessage("name should be in range 3-20"),
     body('phone').matches(/^\d{11}$/).withMessage('Phone number must be 10 digits long')
 
 
@@ -37,20 +37,7 @@ const validateUserData = [
   }
   
   ) ;  
-  router.get('/getsupervisor/:id',isadmin,supervisorcontroller.getsupervisor);
-
-
-
-
-
-
-
-
-
-
-
-
-
+  router.get('/getsupervisor:id',isadmin,supervisorcontroller.getsupervisor);
 
 
 

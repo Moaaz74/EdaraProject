@@ -16,28 +16,28 @@ const Product = require('../Models/product');
     body('warehouseId').notEmpty().withMessage("please enter warehouse id").isInt({ min : 1}).withMessage("please enter Integer number"),
   ];
 
-  router.post("/addProduct" , admin, upload.single("photo"), validateUserData , (req , res) => {
+  router.post("/add" , admin, upload.single("photo"), validateUserData , (req , res) => {
       productController.addProduct(req,res);
     }
 )
 
-  router.put("/updateProduct/:id" ,admin, validateUserData , (req , res) => {
+  router.put("/update:id" ,admin, validateUserData , (req , res) => {
       productController.updateProduct(req,res);
   }
 
 )
 
-router.delete( "/deleteProduct/:id" , admin, (req , res) => {
+router.delete( "/delete:id" , admin, (req , res) => {
   productController.deleteProduct(req , res);
   }
 )
 
-router.get( "/showProducts/:id" , authurized , (req , res) => {
+router.get( "/showall:id" , authurized , (req , res) => {
   productController.show_Products_Per_Warehouse(req , res);
   }
 )
 
-router.get( "/showProduct/:id" , authurized , (req , res) => {
+router.get( "/show:id" , authurized , (req , res) => {
   productController.show_Product(req , res);
   }
 )

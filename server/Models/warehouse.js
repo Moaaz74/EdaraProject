@@ -24,7 +24,6 @@ class Warehouse{
     async getSpecificWarehouse(id){
 
         const warehouses =  await this.getWarehouses();
-        console.log(warehouses);
         for (let i = 0; i < warehouses.length; i++) {
             const jsonWarehouse = warehouses[i];
             for(let key in jsonWarehouse){

@@ -8,6 +8,7 @@ class user {
     state = 'Active';
     id;
     token = "" ;
+    phone = "";
 
 
     constructor(type) {
@@ -35,7 +36,6 @@ class user {
 
     userdata(token) {
         return new Promise((resolve, reject) => {
-            console.log(eamil)
             const query = ' SELECT * FROM user WHERE token = ? ';
             db.query(query, [token], (error, result) => {
                 if (error) {

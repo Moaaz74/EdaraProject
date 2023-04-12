@@ -33,7 +33,17 @@ class AuthController{
                 );
                 if (checkPassword) {
                     delete user[0].password;
+                    if(user[0].state == 'active')
                     res.status(200).json(user[0]);
+                 else
+                    res.status(403).json({
+                        errors: [
+                            {
+                            msg: "Your account status is in-active by Admin",
+                            },
+                        ],
+                        });
+
                 }else {
                     res.status(404).json({
                     errors: [

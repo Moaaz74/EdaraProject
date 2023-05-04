@@ -10,7 +10,7 @@ class supervisorcontroller {
         var result = await supervisor.getallsupervisor();
 
         if (result.length==0){
-            res.status(404).json( { msg: " not found Supervisor " } );
+            res.status(404).json({ errors:[{ msg: " not found Supervisor " },], });
 
         }
         else {
@@ -28,13 +28,14 @@ class supervisorcontroller {
         const password = req.body.password;
         const hashpassward = await bcrypt.hash(password,10);
         supervisor.passward = hashpassward;
+        supervisor.state =req.body.state;
         const randomtoken = crypto.randomBytes(16).toString("hex");
         supervisor.token = randomtoken;
         var result = await supervisor.createsupervisor();
         if (result == "error") {
-            res.status(201).json({ msg: "Email is duplicate" });
+            res.status(403).json({ errors:[{msg : "Email is duplicate"}], });
         }
-        else {
+        else { 
             res.status(200).json({ msg: "done" });
         }} ;
 
@@ -42,10 +43,11 @@ class supervisorcontroller {
         static async getsupervisor(req, res) {
             const result = await Supervisor.getsupervisor(req.params.id);
             if (result.length==0){
-                res.status(404).json({ error: [{ msg: "Supervisor not found" }] });
+                res.status(404).json({ errors: [{ msg: "Supervisor is not found" }] });
 
             }
             else {
+                    
                 res.send(result)
 
             }

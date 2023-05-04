@@ -1,0 +1,30 @@
+.detail-container{
+    background-color: #f6f5f1;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0px;
+}
+.detailPhoto{
+    height: 85vh;
+    width: 26vw;
+    margin-top: 5px;
+    display: flex;
+    /*padding-top: 15%;*/
+}
+.containt{
+    width: 100%;
+}
+.Detail-info{
+    position: absolute;
+    margin: 20% 0px 0px 35%;
+    padding-top: 6%;
+    font-size: 20px;
+}
+.Detail-info>h3{
+    font-size: 40px;
+}
+.Detail-info>p{
+    color: grey;
+    line-height: 30px;
+}

@@ -1,7 +1,7 @@
 /* express app */
 const express = require('express');
 const app = express();
-
+const cors = require('cors');
 /* required modules */
  const admins = require('./routes/Admin');
 const warehouses = require ('./routes/warehouses');
@@ -12,9 +12,11 @@ const auth = require('./routes/Auth');
 const admin = require('./middleware/admin');
 const Auth = require('./middleware/auth');
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // TO ACCESS URL FORM ENCODED
-
+app.use(express.static("upload"));
+app.use(cors());
 
 /* API routes */
 app.use('/admin' , admin,admins);

@@ -1,0 +1,26 @@
+.warehouse-container{
+    background-color: #f6f5f1;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+.warehouse-content{
+    width: 80%;
+    
+}
+.header{
+    padding-top: 60px;
+}
+.header>a{
+    height: 45px;
+    margin-right: 10px;
+}
+
+.WareName{
+    color:black;
+    text-decoration:none;
+}
+
+.WareName:hover{
+    color: blue;
+}

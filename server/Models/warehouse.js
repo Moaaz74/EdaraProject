@@ -1,7 +1,7 @@
 const conn = require('../db/connection');
 const util  = require('util');
 const query = util.promisify(conn.query).bind(conn); // transform query mysql --> promise to use [await/async]
-//const supervisor = require('../Models/supervisor');
+const supervisor = require('../Models/supervisor');
 
 class Warehouse{
 
@@ -33,6 +33,16 @@ class Warehouse{
         return "Error";
     }
 
+    async getProducts(req , id){
+        const productRaw = await query("select * from product where warehouseId = ?" ,[id])
+        productRaw.map((prod) => {
+            prod.photo = "http://" + req.hostname + ":3000/" + prod.photo;
+        });
+        const products = JSON.stringify(productRaw);
+        const data = JSON.parse(products);
+        return data;
+    }
+
     async getWarehouses(){
 
         // USED LEFT JOIN TO GET ALL WAREHOUSES THAT CONTAIN PRODUCTS OR NOT
@@ -42,9 +52,9 @@ class Warehouse{
         return data;
     }
 
-    async getWarehouseByName(id,name){
+    async getWarehouseByName(name){
 
-        const warehouseRaw = await query("SELECT * FROM `warehouse` WHERE warehouse.name = ? and warehouse.id != ? ",[name,id]);
+        const warehouseRaw = await query("SELECT * FROM `warehouse` WHERE warehouse.name = ?",[name]);
         return warehouseRaw;
     }
 
@@ -53,8 +63,9 @@ class Warehouse{
         return warehouseRaw;
     }
 
-    async getWarehouseBySupervisorId(supervisorId , warehouseId){
-        const warehouseRaw = await query("SELECT warehouse.supervisorId FROM `warehouse` WHERE warehouse.supervisorId = ? and warehouse.id != ?" , [supervisorId,warehouseId]);
+    async getWarehouseBySupervisorEmail(email){
+        const supervisorRaw = await supervisor.getsupervisorByEmail(email);
+        const warehouseRaw = await query("SELECT warehouse.supervisorId FROM `warehouse` WHERE warehouse.supervisorId = ?" , [supervisorRaw[0].id]);
         return warehouseRaw;
     } 
 

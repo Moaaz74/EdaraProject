@@ -1,0 +1,55 @@
+.super{
+    background-color: #f6f5f1;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+.addBody{
+    margin-left: 400px;
+    margin-top: 7rem;
+}
+.addBody h1{
+margin-bottom: 30px;
+}
+.label{
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.input{
+    width: 300%;
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 40px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    outline: none;
+    border: 1px solid black;
+    padding: 15px;
+    
+}
+.input:focus{
+    background-color: white;
+    border: 1px solid rgba(0, 0, 255, 0.943);
+    box-shadow: 0 8px 16px 0 rgba(51, 5, 235, 0.201), 0 6px 20px 0 rgba(0, 0, 0, 0.224);
+}
+.addBody a{
+    text-decoration: none;
+    margin-right: 20px;
+    background-color:rgb(0, 0, 255) ;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.addBody a:hover{
+    color: white;
+    background-color:rgb(4, 4, 169) ;
+}

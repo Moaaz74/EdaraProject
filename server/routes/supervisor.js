@@ -14,7 +14,8 @@ const validateUserData = [
     body("email").isEmail().withMessage("please enter valid email "),
     body('password').isLength({ min: 8, max: 16 }).withMessage("please enter valid password ") , 
     body('name').isString().withMessage("please enter valid name ").isLength({ min: 3, max: 20 }).withMessage("name should be in range 3-20"),
-    body('phone').matches(/^\d{11}$/).withMessage('Phone number must be 10 digits long')
+    body('phone').isLength({ min: 11, max: 11 }).withMessage('Phone number must be 11 digits long and only number'),
+    body('phone').isMobilePhone().withMessage("It is not a phone number")
 
 
   ];
@@ -37,7 +38,7 @@ const validateUserData = [
   }
   
   ) ;  
-  router.get('/getsupervisor:id',isadmin,supervisorcontroller.getsupervisor);
+  router.get('/getsupervisor/:id',isadmin,supervisorcontroller.getsupervisor);
 
 
 

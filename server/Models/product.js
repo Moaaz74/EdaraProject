@@ -1,5 +1,6 @@
 const db = require ("../db/connection");
 const util = require("util"); // helper
+const query = util.promisify(db.query).bind(db); // transform query mysql --> promise to use [await/async]
 class Product {
 
     name = '';
@@ -12,23 +13,23 @@ class Product {
         if(req == null) return true
         else if(x==1) {
             this.name = req.body.name;
-            this.descritption = req.body.descritption;
+            this.description = req.body.description;
             this.photo = req.file.filename;
             this.stock = req.body.stock;
             this.warehouseId = req.body.warehouseId;
         }
         else {
             this.name = req.body.name;
-            this.descritption = req.body.descritption;
+            this.description = req.body.description;
             this.stock = req.body.stock;
             this.warehouseId = req.body.warehouseId;
         }
         
     }
 
-    saveProduct () {
+    saveProduct (product) {
         return new Promise((resolve,reject) => {   
-            db.query("insert into product set ?", this , (error , result) => {
+            db.query("insert into product set ?", product , (error , result) => {
                 if (error) {
                     resolve(reject);
                 }
@@ -42,7 +43,7 @@ class Product {
 
     saveUpdatedProduct(id) {
         return new Promise((resolve,reject) => {   
-            db.query("update product set ? where id = ?", [this,id] , (error , result) => {
+            db.query("update product set product.name = ? , product.descritption = ? , product.stock = ? where id = ? ", [this.name , this.description , this.stock , id] , (error , result) => {
                 if (error) {
                     resolve(reject);
                 }
@@ -68,11 +69,16 @@ class Product {
         )
     }
 
-    static async listProducts(id , res) {
+    static async check_warehouse_id(id , res){
         const query = util.promisify(db.query).bind(db);
-        const product = await query("select * from product where warehouseId = ?" ,[id]);
-        res.status(200).json(product); 
+        const product = await query("select * from product where id = ?" ,[id]);
+        if(product[0]) {
+            return true;
+        }
+        return false;
     }
+
+
 
     static async showProducts(id , res) {
         const query = util.promisify(db.query).bind(db);
@@ -90,6 +96,11 @@ class Product {
         return false;
     }
 
+    async getJsonProduct(id){
+        return await query("select * from product where id = ?" ,[id])
+        
+    } 
+
     static async check_product_exist(name , id , res) {
         const query = util.promisify(db.query).bind(db);
         const product = await query("select * from product where name = ? AND NOT id = ?" ,[name , id]);
@@ -100,15 +111,7 @@ class Product {
         return false;
     }
         
-    static async check_warehouse_id(id,res) {
-        const query = util.promisify(db.query).bind(db);
-        const product = await query("select * from warehouse where id = ?" ,[id]);
-        if(!product[0]) {
-            res.status(400).json({ ms: "warehous is not found" });
-            return true;
-        }
-        return false;
-    }
+
 
     static async check_product_id(id , res) {
         const query = util.promisify(db.query).bind(db);
@@ -118,6 +121,10 @@ class Product {
             return true;
         }
         return false;
+    }
+
+    async updateStock(stock,id){
+        await query("UPDATE product SET stock = ? WHERE id = ? " ,[stock,id]);
     }
 
 }

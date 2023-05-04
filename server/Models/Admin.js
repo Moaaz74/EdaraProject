@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const Request = require('../Models/request');
 const { resolve } = require('path');
 const util  = require('util');
-const { error } = require('console');
+const { error, log } = require('console');
 const request = new Request();
 
 class Admin extends user {
@@ -22,8 +22,9 @@ id = 8;
     return "ERROR supervisor does not exist";
 
     const checkEmailExists = await query("select * from user where email= ?",[this.email]);
-    if(checkEmailExists.length>0 && checkEmailExists[0].email!= this.email)
-    return "ERROR email is already exists";
+    if(checkEmailExists.length > 0 && checkEmailExists[0].type == "admin")return "Email is not allowed";
+    if(checkEmailExists.length>0 && checkEmailExists[0].id != id)
+        return "Email is already exists";
     
     await query( "update user set name = ? , email =? , state = ? , phone = ?  where id = ?",[this.name,this.email,this.state,this.phone,id]);
         

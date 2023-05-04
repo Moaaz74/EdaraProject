@@ -9,7 +9,7 @@ const authorized = (req,res,next) => {
                     next();
                 }
                 else {
-                    res.status(403).json({ msg: "you are not authorized to access this" });
+                    res.status(403).json({ errors:[{msg: "you are not authorized to access this" },],});
                 }
                 
             })

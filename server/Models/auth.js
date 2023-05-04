@@ -12,6 +12,12 @@ class Auth{
         return user;
     }
 
+    async getUserById(id){
+        const user = await query("select user.* , warehouse.id as WarehouseId from user JOIN warehouse ON user.id= warehouse.supervisorId WHERE warehouse.supervisorId = ?", [id])
+        console.log(user);
+        return user;
+    }
+
 }
 
 module.exports = Auth;

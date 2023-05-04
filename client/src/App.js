@@ -1,8 +1,14 @@
+import { Outlet } from 'react-router-dom';
 import './App.css';
-import Users from './components/Users.js';
+import Sidebar from "./component/Sidebar"
 function App() {
   return (
-    <Users />
+    <div className="App">
+      <div className="col-2"><Sidebar /></div>
+      <div className="col-12 add-content">
+      <Outlet />
+      </div>
+    </div>
   );
 }
 

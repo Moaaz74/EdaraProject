@@ -5,7 +5,7 @@ class user {
     email = '';
     type = 'supervisor';
     passward = '';
-    state = 'Active';
+    state = ''; 
     id;
     token = "" ;
     phone = "";

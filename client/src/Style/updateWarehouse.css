@@ -1,0 +1,12 @@
+.add-container{
+    background-color: #f6f5f1;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+.add-form{
+    width: 80%;
+    align-items: center;
+    margin-left: 200px;
+    margin-top: 50px;
+}

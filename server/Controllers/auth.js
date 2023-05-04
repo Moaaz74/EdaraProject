@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 class AuthController{
     
     async authinticateUser(req , res){
-        try {
+        try {  
             // 1- VALIDATION REQUEST [manual, express validation]
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -15,7 +15,7 @@ class AuthController{
 
             // 2- CHECK IF EMAIL EXISTS
             
-            const user = await auth.getUserByEmail(req.body.email);
+            const user = await auth.getUserByEmail(req.body.email);                        
             if (user.length == 0) {
                 res.status(404).json({
                 errors: [
@@ -33,14 +33,22 @@ class AuthController{
                 );
                 if (checkPassword) {
                     delete user[0].password;
-                    if(user[0].state == 'active')
-                    res.status(200).json(user[0]);
-                 else
+                    if(user[0].state == 'active'){
+                        const supervisor = await auth.getUserById(user[0].id);
+                        if(supervisor.length>0){
+                            res.status(200).json(supervisor[0]);    
+                            
+                        }else {
+                            res.status(200).json(user[0]); 
+                        }
+                        
+                    }  
+                 else    
                     res.status(403).json({
                         errors: [
                             {
                             msg: "Your account status is in-active by Admin",
-                            },
+                            }, 
                         ],
                         });
 
@@ -53,14 +61,20 @@ class AuthController{
                     ],
                     });
                 }
-            }else {
-                if(req.body.password != user[0].password)res.status(404).json({msg : "Invalid Password"});
-                res.status(200).json(user[0]);
+            }else {  
+                if(req.body.password != user[0].password)res.status(404).json({
+                    errors: [
+                        {
+                        msg: "invalid password !",
+                        },
+                    ],
+                    });
+                res.status(200).json(user[0]); 
             }
 
         } catch (err) {
             console.log(err);
-        res.status(500).json({ err: err });
+        res.status(500).json({ err: err });  
         }
     }
 

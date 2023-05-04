@@ -5,15 +5,19 @@ const admin = new Admin('Admin');
 class AdminController{
 
 async updateSupervisor(req,res){
-admin.state= req.body.state;
-admin.name = req.body.name;
-admin.email = req.body.email;
-admin.phone = req.body.phone;
-   const result =   await admin.updateSupervisor(req.params.id); 
-   if(result!="Supervisor is updated")
-   res.status(403).json({ msg : result});
-   else 
-   res.json({ msg : result});
+     const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+     admin.state= req.body.state;
+     admin.name = req.body.name;
+     admin.email = req.body.email;
+     admin.phone = req.body.phone;
+     const result =   await admin.updateSupervisor(req.params.id); 
+     if(result!="Supervisor is updated")
+     res.status(403).json({errors:[{msg : result}] }); 
+     else 
+     res.json({ msg : result});
 }
 
 async deleteSupervisor(req,res){

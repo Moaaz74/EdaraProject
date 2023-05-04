@@ -17,12 +17,12 @@ class usercontroller {
                res.status(200).json({ data: result });
             }
            else {
-                res.status(404).json({ error: [{ msg: " passward is not correct" }] });
+                res.status(404).json({ errors: [{ msg: " passward is not correct" }] });
 
             }
         }
         else {
-            res.status(404).json({ error: [{ msg: "email is not found" }] });
+            res.status(404).json({ errors: [{ msg: "email is not found" }] });
         }
 
 

@@ -39,6 +39,23 @@ class supervisor extends user {
         });
     }
 
+    static async getsupervisorByEmail(email) {
+        return new Promise((resolve, reject) => {
+            const query = ' SELECT * FROM user WHERE email = ? and type = ?';
+            const type = "supervisor" ;
+            db.query(query, [email,type], (error, result) => {
+                if (error) {
+
+                    resolve(error);
+
+                }
+                else {
+                    resolve(result);
+                }
+            })
+        });
+    }
+
     static async getsupervisor(id) {
         return new Promise((resolve, reject) => {
             const query = ' SELECT * FROM user WHERE id = ? and type = ?';
